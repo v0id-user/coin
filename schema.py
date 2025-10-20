@@ -4,7 +4,6 @@ import time
 
 @dataclass
 class Block:
-    index: int
     timestamp: int
     data: Any
     prev_hash: str
@@ -13,14 +12,13 @@ class Block:
     difficulty: int
 
     @staticmethod
-    def create(index: int, data: Any, prev_hash: str, difficulty: int) -> "Block":
+    def create(data: Any, prev_hash: str, hash: str, difficulty: int) -> "Block":
         """Factory for initializing a new block before mining."""
         return Block(
-            index=index,
             timestamp=int(time.time() * 1000),
             data=data,
             prev_hash=prev_hash,
             nonce=0,
-            hash="",
+            hash=hash,
             difficulty=difficulty,
         )

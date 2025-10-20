@@ -26,10 +26,12 @@ Version:
 from hashlib import sha256
 import time
 
-difficulty = 4  # means hash must start with "0000"
+from schema import Block
+
+difficulty = 5  # means hash must start with "000..."
 
 
-def mine(prev_hash: str, data: str, nonce: int = 0) -> tuple[str, int, float]:
+def mine(prev_hash: str, data: str, nonce: int = 0) -> tuple[str, int, float, Block]:
     """
     Mine a new block by finding a valid nonce that satisfies the difficulty requirement.
     
@@ -88,7 +90,8 @@ def mine(prev_hash: str, data: str, nonce: int = 0) -> tuple[str, int, float]:
         # Check if hash meets difficulty requirement
         if block_hash.startswith(target_prefix):
             mining_time = time.time() - start_time
-            return block_hash, nonce, mining_time
+            block = Block.create(data, prev_hash, block_hash, difficulty)
+            return block_hash, nonce, mining_time, block
         
         # Increment nonce and try again
         nonce += 1
