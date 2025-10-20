@@ -1,16 +1,20 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import sqlite3
 
-
-class RequestHandler(BaseHTTPRequestHandler):
-    def __init__(self, request, client_address, server) -> None:
-        super().__init__(request, client_address, server)
-
-    
-    def handle(self) -> None:
-
-        return super().handle()
+# https://docs.python.org/3/library/http.server.html
+class RequestHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == "/":
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b'Hello, World!')
+        
 
 def startServer():
-    with HTTPServer(("0.0.0.0", 42122), RequestHandler) as server:
+    with HTTPServer(("0.0.0.0", 42122), RequestHandler) as http:
         print("Server Ready at http://localhost:42122")
-        server.serve_forever()
+        http.serve_forever()
+
+if __name__ == "__main__":
+    startServer()
