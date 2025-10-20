@@ -3,5 +3,5 @@
   "devDependencies": {
     "@nyron/cli": "^0.7.6"
   },
-  "version": "0.1.1"
+  "version": "1.0.0"
 }
