@@ -50,5 +50,5 @@ python main.py client "Your transaction data here"
 
 ## License
 
-MIT
+ISC
 
