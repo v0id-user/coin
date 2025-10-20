@@ -2,7 +2,9 @@
 
 A minimal blockchain implementation exploring how Bitcoin and proof-of-work systems function.
 
-[Demo usage](./demo.gif)
+**Demo video:**
+
+![Demo video](./demo.gif)
 
 ## Overview
 
