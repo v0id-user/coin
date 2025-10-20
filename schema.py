@@ -12,13 +12,15 @@ class Block:
     difficulty: int
 
     @staticmethod
-    def create(data: Any, prev_hash: str, hash: str, difficulty: int) -> "Block":
+    def create(data: Any, prev_hash: str, hash: str, difficulty: int, timestamp: int = None, nonce: int = 0) -> "Block":
         """Factory for initializing a new block before mining."""
+        if timestamp is None:
+            timestamp = int(time.time() * 1000)
         return Block(
-            timestamp=int(time.time() * 1000),
+            timestamp=timestamp,
             data=data,
             prev_hash=prev_hash,
-            nonce=0,
+            nonce=nonce,
             hash=hash,
             difficulty=difficulty,
         )

@@ -71,11 +71,11 @@ def mine(prev_hash: str, data: str, nonce: int = 0) -> tuple[str, int, float, Bl
     if not prev_hash or not data:
         raise ValueError("prev_hash and data cannot be empty")
     
-    timestamp = time.time()
+    timestamp = int(time.time())
     start_time = time.time()
     
     # Convert timestamp to string for hashing
-    timestamp_str = str(int(timestamp))
+    timestamp_str = str(timestamp)
     
     # Target prefix based on difficulty (e.g., "0000" for difficulty=4)
     target_prefix = "0" * difficulty
@@ -90,8 +90,40 @@ def mine(prev_hash: str, data: str, nonce: int = 0) -> tuple[str, int, float, Bl
         # Check if hash meets difficulty requirement
         if block_hash.startswith(target_prefix):
             mining_time = time.time() - start_time
-            block = Block.create(data, prev_hash, block_hash, difficulty)
+            block = Block.create(data, prev_hash, block_hash, difficulty, timestamp, nonce)
             return block_hash, nonce, mining_time, block
         
         # Increment nonce and try again
         nonce += 1
+
+
+def validate_block(block: Block) -> bool:
+    """
+    Validate a block by checking hash correctness and difficulty requirement.
+    
+    Performs strict validation:
+    1. Reconstructs the hash from block data
+    2. Verifies it matches the block's hash
+    3. Verifies the hash meets the difficulty requirement
+    
+    Args:
+        block (Block): The block to validate
+    
+    Returns:
+        bool: True if block is valid, False otherwise
+    """
+    # Reconstruct the hash from block data
+    timestamp_str = str(block.timestamp)
+    block_data = block.prev_hash + timestamp_str + str(block.data) + str(block.nonce)
+    reconstructed_hash = sha256(block_data.encode('utf-8')).hexdigest()
+    
+    # Check if reconstructed hash matches block hash
+    if reconstructed_hash != block.hash:
+        return False
+    
+    # Check if hash meets difficulty requirement
+    target_prefix = "0" * block.difficulty
+    if not block.hash.startswith(target_prefix):
+        return False
+    
+    return True
