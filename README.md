@@ -2,6 +2,8 @@
 
 A minimal blockchain implementation exploring how Bitcoin and proof-of-work systems function.
 
+[Demo usage](./demo.gif)
+
 ## Overview
 
 This project demonstrates the core concepts of blockchain technology:
