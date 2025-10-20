@@ -1,5 +1,10 @@
 {
-  "packages": [],
+  "packages": [
+    {
+      "prefix": "coin",
+      "version": "0.1.1"
+    }
+  ],
   "createdAt": "2025-10-20T08:10:46.030Z",
-  "latestTag": "nyron-release@2025-10-20@08-10-46.030"
+  "latestTag": "nyron-release@2025-10-20@08-13-14.763"
 }

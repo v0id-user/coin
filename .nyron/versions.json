@@ -1,4 +1,19 @@
 {
   "createdAt": "2025-10-20T08:10:46.030Z",
-  "packages": {}
+  "packages": {
+    "coin": [
+      {
+        "prefix": "coin",
+        "version": "0.0.0"
+      },
+      {
+        "prefix": "coin",
+        "version": "0.1.0"
+      },
+      {
+        "prefix": "coin",
+        "version": "0.1.1"
+      }
+    ]
+  }
 }
